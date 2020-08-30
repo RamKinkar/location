@@ -1,43 +1,54 @@
 import React from 'react'
-import { Button, Header, Icon, Modal, Grid, Form, Label, GridRow, Select } from 'semantic-ui-react'
+import { Button, Header, Icon, Modal, Grid, Form, Label, GridRow, Select, Dropdown } from 'semantic-ui-react'
 import { Formik, Field } from 'formik';
 
 const stateOptions = [
-  { key: 'af', value: 'af', text: 'Afghanistan' },
-  { key: 'ax', value: 'ax', text: 'Aland Islands' },
-  { key: 'al', value: 'al', text: 'Albania' },
-  { key: 'dz', value: 'dz', text: 'Algeria' },
-  { key: 'as', value: 'as', text: 'American Samoa' },
-  { key: 'ad', value: 'ad', text: 'Andorra' },
-  { key: 'ao', value: 'ao', text: 'Angola' },
-  { key: 'ai', value: 'ai', text: 'Anguilla' },
-  { key: 'ag', value: 'ag', text: 'Antigua' },
-  { key: 'ar', value: 'ar', text: 'Argentina' },
-  { key: 'am', value: 'am', text: 'Armenia' },
-  { key: 'aw', value: 'aw', text: 'Aruba' },
-  { key: 'au', value: 'au', text: 'Australia' },
-  { key: 'at', value: 'at', text: 'Austria' },
-  { key: 'az', value: 'az', text: 'Azerbaijan' },
-  { key: 'bs', value: 'bs', text: 'Bahamas' },
-  { key: 'bh', value: 'bh', text: 'Bahrain' },
-  { key: 'bd', value: 'bd', text: 'Bangladesh' },
-  { key: 'bb', value: 'bb', text: 'Barbados' },
-  { key: 'by', value: 'by', text: 'Belarus' },
-  { key: 'be', value: 'be', text: 'Belgium' },
-  { key: 'bz', value: 'bz', text: 'Belize' },
-  { key: 'bj', value: 'bj', text: 'Benin' },
+  "Andaman and Nicobar Islands",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chandigarh",
+  "Chhattisgarh",
+  "Dadra and Nagar Haveli",
+  "Daman and Diu",
+  "Delhi",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Ladakh",
+  "Lakshadweep",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Puducherry",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal"
 ]
 
 const AddLocationModal = ({open,onClose, handleSubmit})=> {
-
   return (
     <Modal
-      closeIcon
       open={open}
-      trigger={<Button>Show Modal</Button>}
       onClose={onClose}
     >
-      <Header content='Add LOcations' />
+      <Header content='Add Locations' />
       <Modal.Content>
       <Formik
              name="appointmentPool"
@@ -52,7 +63,6 @@ const AddLocationModal = ({open,onClose, handleSubmit})=> {
          handleBlur,
          handleSubmit,
          isSubmitting,
-         /* and other goodies */
        }) => (
          <form onSubmit={handleSubmit}>
         <Grid>
@@ -118,20 +128,14 @@ const AddLocationModal = ({open,onClose, handleSubmit})=> {
            </Grid.Column>
            <Grid.Column>
             <Label>State</Label>
-            {/* <input
-            className="fieldInput"
-             type="text"
-             name="state"
-             onChange={handleChange}
-             onBlur={handleBlur}
-             value={values.locationName}
-           /> */}
-           <Field as="select" name="state">
-             <option value="red">Red</option>
-             <option value="green">Green</option>
-             <option value="blue">Blue</option>
+           <Field style={{padding: "10px", margin:"10px"}} as="select" name="state">
+           <option value="">Select State</option>
+           { stateOptions.map(field=>{
+              return(
+              <option value={field}>{field}</option>
+              )
+          })}
            </Field>
-           <Select placeholder='Select your country' name="state" options={stateOptions} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -140,7 +144,7 @@ const AddLocationModal = ({open,onClose, handleSubmit})=> {
             <input
             className="fieldInput"
              type="text"
-             name="zip" minlength="5" maxlength="10"
+             name="zip" minLength="5" maxLength="10"
              onChange={handleChange}
              onBlur={handleBlur}
              value={values.locationName}

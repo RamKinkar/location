@@ -2,8 +2,7 @@ import React from 'react'
 import { Icon, Label, Menu, Table } from 'semantic-ui-react'
 
 const LocationList = (props) => {
-//   const listData = props}   
-console.log('listData>>>>>>>>>>>>',props)
+let removeLocation  =   props.removeLocation;
 return(
   <Table celled>
     <Table.Header>
@@ -16,12 +15,12 @@ return(
     </Table.Header>
 
     <Table.Body>
-    { props.listData.map(field=>{
+    { props.listData.map((field,index)=>{
         return(
         <Table.Row><Table.Cell>{field.location}</Table.Cell>
-            <Table.Cell>{field.addressLineOne}</Table.Cell>
+            <Table.Cell>{field.addressLineOne+' '+field.suiteNo+' '+field.addressLineTwo+' '+field.city+' '+field.state}</Table.Cell>
             <Table.Cell>{field.phoneNo}</Table.Cell>
-            <Table.Cell> <Icon name='edit' /><Icon name='delete' /></Table.Cell>
+            <Table.Cell><Icon name='delete' onClick={() => removeLocation(index)} /></Table.Cell>
         </Table.Row>
         )
     })}
@@ -35,9 +34,6 @@ return(
               <Icon name='chevron left' />
             </Menu.Item>
             <Menu.Item as='a'>1</Menu.Item>
-            <Menu.Item as='a'>2</Menu.Item>
-            <Menu.Item as='a'>3</Menu.Item>
-            <Menu.Item as='a'>4</Menu.Item>
             <Menu.Item as='a' icon>
               <Icon name='chevron right' />
             </Menu.Item>

@@ -5,26 +5,35 @@ import LocationListPage from './LocationList'
 import './location.css'
 const LocationInfo = ()=> {
     const [open, setOpen] = React.useState(false)
-    const listData = JSON.parse(localStorage.getItem('locations'));
+    const [listData, setListData] = React.useState(JSON.parse(localStorage.getItem('locations')))
     let listPage;
     const handleSubmit = (values) =>{
         const locationList = []
         if(JSON.parse(localStorage.getItem('locations')) && JSON.parse(localStorage.getItem('locations')).length) {
             let updateLocationList = JSON.parse(localStorage.getItem('locations'))
             updateLocationList.push(values)
-            localStorage.setItem('locations',JSON.stringify(updateLocationList)) 
+            localStorage.setItem('locations',JSON.stringify(updateLocationList))
+            setListData(JSON.parse(localStorage.getItem('locations'))) 
         }else {
             locationList.push(values)
             localStorage.setItem('locations',JSON.stringify(locationList))
+            setListData(JSON.parse(localStorage.getItem('locations')))
         }
-        // onClose={onClose}
+        setOpen(false)
     }
-    console.log('values>>>>>',localStorage.getItem('locations'))
+    const removeLocation = (index) => {
+        console.log('index value from child',index)
+        const updateLocationList = JSON.parse(localStorage.getItem('locations'))
+        updateLocationList.splice(index,1)
+        console.log('index value from child',updateLocationList)
+        localStorage.setItem('locations',JSON.stringify(updateLocationList))
+        setListData(JSON.parse(localStorage.getItem('locations'))) 
 
+    }
     if( listData && listData.length){
-        listPage= <LocationListPage listData={listData}/>
+        listPage= <LocationListPage listData={listData} removeLocation={removeLocation}/>
     }else {
-        listPage = <Image src={require("./images/location.jpg")}/>
+        listPage = <Image src={require("./images/location.jpg")} className="image-location"/>
     }
     return (
     <div className="wrapper">
